@@ -14,7 +14,7 @@ module CXML
         @payload_id = data['payloadID']
 
         if data['timestamp']
-          @timestamp = Time.parse(data['timestamp'])
+          @timestamp = data['timestamp'].is_a?(String) ? Time.parse(data['timestamp']) : data['timestamp']
         end
 
         if data['Header']
@@ -29,12 +29,6 @@ module CXML
           @response = CXML::Response.new(data['Response'])
         end
       end
-    end
-
-    def setup
-      @version    = CXML::Protocol.version
-      @timestamp  = Time.now.utc
-      @payload_id = "#{@timestamp.to_i}.process.#{Process.pid}@domain.com"
     end
 
     # Check if document is request
