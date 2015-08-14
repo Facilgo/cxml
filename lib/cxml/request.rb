@@ -20,7 +20,9 @@ module CXML
     end
 
     def render(node)
-      @order_request.render(node) if @order_request
+      node.Request do |t|
+        @order_request.render(node) if @order_request
+      end
     end
   end
 end

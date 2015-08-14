@@ -16,10 +16,12 @@ module CXML
     end
 
     def render(node)
-      @order_request_header.render(node) if @order_request_header
+      node.OrderRequest do |t|
+        @order_request_header.render(t) if @order_request_header
 
-      @item_outs.each do |item_out|
-        item_out.render(node)
+        @item_outs.each do |item_out|
+          item_out.render(t)
+        end
       end
     end
   end
