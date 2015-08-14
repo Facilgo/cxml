@@ -11,7 +11,7 @@ module CXML
         @unit_price = @item_detail['UnitPrice']
         @unit_of_measure = @item_detail['UnitOfMeasure']
 
-        @shipping = data['Shipping']
+        @shipping = data['Shipping'] if data['Shipping']
       end
     end
 
@@ -26,8 +26,10 @@ module CXML
             p.text @unit_of_measure['content']
           end
         end
-        t.Shipping do |o|
-          o.Money { |p| CXML::Money.new(@shipping['Money']).render(p) }
+        if @shipping
+          t.Shipping do |o|
+            o.Money { |p| CXML::Money.new(@shipping['Money']).render(p) }
+          end
         end
       end
     end
