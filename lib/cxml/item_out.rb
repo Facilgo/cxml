@@ -6,7 +6,7 @@ module CXML
         @line_number = data['lineNumber']
         @requested_delivery_date = data['requestedDeliveryDate']
 
-        @item_id = data['ItemId']
+        @item_id = data['ItemID']
         @supplier_part_id = @item_id['SupplierPartID']
 
         @item_detail = data['ItemDetail']
