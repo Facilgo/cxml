@@ -25,9 +25,9 @@ module CXML
           'orderType' => @order_type,
           'orderVersion' => @order_version,
           'type' => @type) do |n|
-        n.Total     { |t| CXML::Money.new(@total).render(t) }
-        n.ShipTo    { |t| CXML::Address.new(@ship_to).render(t) }
-        n.BillTo    { |t| CXML::Address.new(@bill_to).render(t) }
+        n.Total     { |t| CXML::Money.new(@total['Money']).render(t) }
+        n.ShipTo    { |t| CXML::Address.new(@ship_to['Address']).render(t) }
+        n.BillTo    { |t| CXML::Address.new(@bill_to['Address']).render(t) }
         n.Shipping  { |t| CXML::Money.new(@shipping['Money']).render(t) }
         n.Tax       { |t| CXML::Money.new(@tax['Money']).render(t) }
         # n.Contact   { |t| puts 'TODO' }
