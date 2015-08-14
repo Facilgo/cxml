@@ -22,14 +22,14 @@ module CXML
 
     def initialize(data={})
       if data.kind_of?(Hash) && !data.empty?
-        @currency = data['currency']
-        @amount = data['amount']
+        @currency = data['currency'] || 'USD'
+        @content = data['content']
       end
     end
 
     def render(node)
       node.Money(currency: @currency) do |t|
-        t.text @amount
+        t.text @content
       end
     end
   end

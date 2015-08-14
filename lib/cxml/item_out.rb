@@ -23,7 +23,7 @@ module CXML
         t.ItemDetail do |o|
           o.UnitPrice { |p| CXML::Money.new(@unit_price).render(p) }
           o.UnitOfMeasure do |p|
-            p.text @unit_of_measure['Content']
+            p.text @unit_of_measure['content']
           end
         end
         t.Shipping do |o|
