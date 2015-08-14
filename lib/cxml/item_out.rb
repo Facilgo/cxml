@@ -5,7 +5,9 @@ module CXML
         @quantity = data['quantity']
         @line_number = data['lineNumber']
         @requested_delivery_date = data['requestedDeliveryDate']
+
         @item_id = data['ItemId']
+        @supplier_part_id = @item_id['SupplierPartID']
 
         @item_detail = data['ItemDetail']
         @unit_price = @item_detail['UnitPrice']
@@ -18,7 +20,7 @@ module CXML
     def render(node)
       node.ItemOut('quantity' => @quantity, 'lineNumber' => @line_number, 'requestedDeliveryDate' => @requested_delivery_date) do |t|
         t.ItemID do |o|
-          o.SupplierPartID { |p| p.text(@item_id) }
+          o.SupplierPartID { |p| p.text(@supplier_part_id['content']) }
         end
         t.ItemDetail do |o|
           o.UnitPrice { |p| CXML::Money.new(@unit_price).render(p) }
