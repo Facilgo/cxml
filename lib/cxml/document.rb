@@ -14,7 +14,7 @@ module CXML
         @payload_id = data['payloadID']
 
         if data['timestamp']
-          @timestamp = data['timestamp'].is_a?(String) ? Time.parse(data['timestamp']) : data['timestamp']
+          @timestamp = data['timestamp']
         end
 
         if data['Header']
@@ -45,7 +45,7 @@ module CXML
 
     def render
       node = CXML.builder
-      node.cXML('version' => version, 'payloadID' => payload_id, 'timestamp' => timestamp.iso8601) do |doc|
+      node.cXML('version' => version, 'payloadID' => payload_id, 'timestamp' => timestamp) do |doc|
         doc.Header { |n| @header.render(n) } if @header
         @request.render(node) if @request
         @response.render(node) if @response
