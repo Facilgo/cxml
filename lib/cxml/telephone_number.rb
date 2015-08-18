@@ -1,3 +1,5 @@
+require 'iso_country_codes'
+
 module CXML
   class TelephoneNumber
     def initialize(data={})
