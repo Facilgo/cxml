@@ -23,7 +23,7 @@ module CXML
           o.SupplierPartID { |p| p.text(@supplier_part_id['content']) }
         end
         t.ItemDetail do |o|
-          o.UnitPrice { |p| CXML::Money.new(@unit_price).render(p) }
+          o.UnitPrice { |p| CXML::Money.new(@unit_price['Money']).render(p) }
           o.UnitOfMeasure do |p|
             p.text @unit_of_measure['content']
           end
