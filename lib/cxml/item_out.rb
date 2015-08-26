@@ -11,7 +11,7 @@ module CXML
 
         @item_detail = data['ItemDetail']
         @unit_price = @item_detail['UnitPrice']
-        @description = CXML::Description.new(@item_detail['Description']) if @description
+        @description = CXML::Description.new(@item_detail['Description']) if @item_detail['Description']
         @unit_of_measure = @item_detail['UnitOfMeasure']
 
         @shipping = data['Shipping'] if data['Shipping']
