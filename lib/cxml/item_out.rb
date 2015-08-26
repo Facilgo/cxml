@@ -25,7 +25,7 @@ module CXML
         end
         t.ItemDetail do |o|
           o.UnitPrice { |p| CXML::Money.new(@unit_price['Money']).render(p) }
-          @description.render(p) if @description
+          @description.render(o) if @description
           o.UnitOfMeasure do |p|
             p.text @unit_of_measure['content']
           end
