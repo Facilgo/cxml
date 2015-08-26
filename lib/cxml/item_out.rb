@@ -11,6 +11,7 @@ module CXML
 
         @item_detail = data['ItemDetail']
         @unit_price = @item_detail['UnitPrice']
+        @description = CXML::Description.new(@item_detail['Description']) if @description
         @unit_of_measure = @item_detail['UnitOfMeasure']
 
         @shipping = data['Shipping'] if data['Shipping']
@@ -24,6 +25,7 @@ module CXML
         end
         t.ItemDetail do |o|
           o.UnitPrice { |p| CXML::Money.new(@unit_price['Money']).render(p) }
+          @description.render(p) if @description
           o.UnitOfMeasure do |p|
             p.text @unit_of_measure['content']
           end
