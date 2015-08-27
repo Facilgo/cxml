@@ -31,7 +31,7 @@ module CXML
         n.Shipping  { |t| CXML::Money.new(@shipping['Money']).render(t) }
         n.Tax       { |t| CXML::Money.new(@tax['Money']).render(t) }
         # n.Contact   { |t| puts 'TODO' }
-        # n.Comments  { |t| puts 'TODO' }
+        n.Comments
       end
     end
   end
