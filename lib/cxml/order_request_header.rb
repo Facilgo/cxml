@@ -15,6 +15,7 @@ module CXML
         @tax = data['Tax']
         @contact = data['Contact']
         @comments = data['Comments']
+        @extrinsic = data['Extrinsic']
       end
     end
 
@@ -30,6 +31,7 @@ module CXML
         n.BillTo    { |t| CXML::Address.new(@bill_to['Address']).render(t) }
         n.Shipping  { |t| CXML::Money.new(@shipping['Money']).render(t) }
         n.Tax       { |t| CXML::Money.new(@tax['Money']).render(t) }
+        CXML::Extrinsic.new(@extrinsic).render(n) if @extrinsic
         # n.Contact   { |t| puts 'TODO' }
         n.Comments
       end
