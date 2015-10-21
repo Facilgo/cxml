@@ -27,6 +27,7 @@ module CXML
   autoload :Phone,              'cxml/phone'
   autoload :PostalAddress,      'cxml/postal_address'
   autoload :TelephoneNumber,    'cxml/telephone_number'
+  autoload :Extrinsic,          'cxml/extrinsic'
 
   def self.parse(str)
     CXML::Parser.new.parse(str)
