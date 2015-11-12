@@ -31,7 +31,11 @@ module CXML
         n.BillTo    { |t| CXML::Address.new(@bill_to['Address']).render(t) }
         n.Shipping  { |t| CXML::Money.new(@shipping['Money']).render(t) }
         n.Tax       { |t| CXML::Money.new(@tax['Money']).render(t) }
-        CXML::Extrinsic.new(@extrinsic).render(n) if @extrinsic
+        if @extrinsic.present?
+          @extrinsic.each do |extrinsic|
+            CXML::Extrinsic.new(@extrinsic).render(n) if @extrinsic
+          end
+        end
         # n.Contact   { |t| puts 'TODO' }
         n.Comments
       end
