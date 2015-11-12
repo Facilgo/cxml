@@ -33,7 +33,7 @@ module CXML
         n.Tax       { |t| CXML::Money.new(@tax['Money']).render(t) }
         if @extrinsic.present?
           @extrinsic.each do |extrinsic|
-            CXML::Extrinsic.new(@extrinsic).render(n) if @extrinsic
+            CXML::Extrinsic.new(extrinsic).render(n)
           end
         end
         # n.Contact   { |t| puts 'TODO' }

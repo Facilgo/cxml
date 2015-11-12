@@ -15,6 +15,7 @@ module CXML
         @unit_of_measure = @item_detail['UnitOfMeasure']
 
         @shipping = data['Shipping'] if data['Shipping']
+        @extrinsic = data['Extrinsic']
       end
     end
 
@@ -33,6 +34,11 @@ module CXML
         if @shipping
           t.Shipping do |o|
             o.Money { |p| CXML::Money.new(@shipping['Money']).render(p) }
+          end
+        end
+        if @extrinsic.present?
+          @extrinsic.each do |extrinsic|
+            CXML::Extrinsic.new(extrinsic).render(t)
           end
         end
       end
