@@ -2,6 +2,7 @@ module CXML
   class Status
     attr_accessor :code
     attr_accessor :text
+    attr_accessor :content
     attr_accessor :xml_lang
 
     # Initialize a new Status instance
@@ -12,6 +13,7 @@ module CXML
       if data.kind_of?(Hash) && !data.empty?
         @code     = data['code'].to_i
         @text     = data['text']
+        @content  = data['content']
         @xml_lang = data['xml:lang']
       end
     end
@@ -29,7 +31,9 @@ module CXML
     end
 
     def render(node)
-      node.Status(:code => @code, :text => @text)
+      node.Status(:code => @code, :text => @text) do |p|
+        p.text @content
+      end
     end
   end
 end
