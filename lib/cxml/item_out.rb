@@ -11,6 +11,7 @@ module CXML
 
         @item_detail = data['ItemDetail']
         @unit_price = @item_detail['UnitPrice']
+        @classification = CXML::Classification.new(@item_detail['Classification']) if @item_detail['Classification']
         @description = CXML::Description.new(@item_detail['Description']) if @item_detail['Description']
         @unit_of_measure = @item_detail['UnitOfMeasure']
 
@@ -30,6 +31,7 @@ module CXML
           o.UnitOfMeasure do |p|
             p.text @unit_of_measure['content']
           end
+          @classification.render(o) if @classification
         end
         if @shipping
           t.Shipping do |o|

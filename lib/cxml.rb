@@ -16,6 +16,7 @@ module CXML
   autoload :Parser,             'cxml/parser'
 
   autoload :Address,            'cxml/address'
+  autoload :Classification,     'cxml/classification'
   autoload :Country,            'cxml/country'
   autoload :Description,        'cxml/description'
   autoload :Email,              'cxml/email'
