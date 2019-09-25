@@ -29,8 +29,14 @@ module CXML
         n.Total     { |t| CXML::Money.new(@total['Money']).render(t) }
         n.ShipTo    { |t| CXML::Address.new(@ship_to['Address']).render(t) }
         n.BillTo    { |t| CXML::Address.new(@bill_to['Address']).render(t) }
-        n.Shipping  { |t| CXML::Money.new(@shipping['Money']).render(t) }
-        n.Tax       { |t| CXML::Money.new(@tax['Money']).render(t) }
+        n.Shipping do |t|
+          CXML::Money.new(@shipping['Money']).render(t)
+          CXML::Description.new(@shipping['Description']).render(t) if @shipping['Description']
+        end
+        n.Tax do |t|
+          CXML::Money.new(@tax['Money']).render(t)
+          CXML::Description.new(@tax['Description']).render(t) if @tax['Description']
+        end
         if @extrinsic.present?
           @extrinsic.each do |extrinsic|
             CXML::Extrinsic.new(extrinsic).render(n)
