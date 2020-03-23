@@ -16,12 +16,17 @@ module CXML
         if data['OrderRequest']
           @order_request = CXML::OrderRequest.new(data['OrderRequest'])
         end
+
+        if data['PunchOutSetupRequest']
+          @punch_out_setup_request = CXML::OrderRequest.new(data['PunchOutSetupRequest'])
+        end
       end
     end
 
     def render(node)
-      node.Request do |t|
+      node.Request('deploymentMode' => @deployment_mode) do |t|
         @order_request.render(node) if @order_request
+        @punch_out_setup_request.render(node) if @punch_out_setup_request
       end
     end
   end
