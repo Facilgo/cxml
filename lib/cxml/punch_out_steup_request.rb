@@ -20,7 +20,7 @@ module CXML
           end
         end
         n.BrowserFormPost do |t|
-          CXML::URL.new(@browser_form_post['URL']).render(t)
+          CXML::Url.new(@browser_form_post['URL']).render(t)
         end
         n.ShipTo    { |t| CXML::Address.new(@ship_to['Address']).render(t) }
       end

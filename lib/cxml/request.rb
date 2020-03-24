@@ -18,7 +18,7 @@ module CXML
         end
 
         if data['PunchOutSetupRequest']
-          @punch_out_setup_request = CXML::OrderRequest.new(data['PunchOutSetupRequest'])
+          @punch_out_setup_request = CXML::PunchOutSetupRequest.new(data['PunchOutSetupRequest'])
         end
       end
     end
