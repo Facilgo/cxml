@@ -8,14 +8,18 @@ module CXML
 
         @item_id = data['ItemID']
         @supplier_part_id = @item_id['SupplierPartID']
+        @supplier_part_auxiliary_id = @item_id['SupplierPartAuxiliaryID']
 
         @item_detail = data['ItemDetail']
-        @unit_price = @item_detail['UnitPrice']
-        @classification = CXML::Classification.new(@item_detail['Classification']) if @item_detail['Classification']
-        @description = CXML::Description.new(@item_detail['Description']) if @item_detail['Description']
-        @unit_of_measure = @item_detail['UnitOfMeasure']
 
-        @shipping = data['Shipping'] if data['Shipping']
+        if @item_detail
+          @unit_price = @item_detail['UnitPrice']
+          @classification = CXML::Classification.new(@item_detail['Classification']) if @item_detail['Classification']
+          @description = CXML::Description.new(@item_detail['Description']) if @item_detail['Description']
+          @unit_of_measure = @item_detail['UnitOfMeasure']
+        end
+
+        @shipping = data['Shipping']
         @extrinsic = data['Extrinsic']
       end
     end
@@ -25,13 +29,18 @@ module CXML
         t.ItemID do |o|
           o.SupplierPartID { |p| p.text(@supplier_part_id['content']) }
         end
-        t.ItemDetail do |o|
-          o.UnitPrice { |p| CXML::Money.new(@unit_price['Money']).render(p) }
-          @description.render(o) if @description
-          o.UnitOfMeasure do |p|
-            p.text @unit_of_measure['content']
+        t.ItemID do |o|
+          o.SupplierPartAuxiliaryID { |p| p.text(@supplier_part_auxiliary_id['content']) }
+        end
+        if @item_detail
+          t.ItemDetail do |o|
+            o.UnitPrice { |p| CXML::Money.new(@unit_price['Money']).render(p) }
+            @description.render(o) if @description
+            o.UnitOfMeasure do |p|
+              p.text @unit_of_measure['content']
+            end
+            @classification.render(o) if @classification
           end
-          @classification.render(o) if @classification
         end
         if @shipping
           t.Shipping do |o|
