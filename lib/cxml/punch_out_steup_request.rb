@@ -7,6 +7,7 @@ module CXML
         @buyer_cookie = CXML::BuyerCookie.new(data['BuyerCookie'])
         @extrinsic = data['Extrinsic']
         @browser_form_post = data['BrowserFormPost']
+        @supplier_setup = data['SupplierSetup']
         @item_outs = []
         if data['ItemOut'] && data['ItemOut'].is_a?(Array)
           data['ItemOut'].each do |item|
@@ -27,6 +28,11 @@ module CXML
         end
         n.BrowserFormPost do |t|
           CXML::Url.new(@browser_form_post['URL']).render(t)
+        end
+        if @supplier_setup
+          n.SupplierSetup do |t|
+            CXML::Url.new(@supplier_setup['URL']).render(t)
+          end
         end
         @item_outs.each do |item_out|
           item_out.render(n)
