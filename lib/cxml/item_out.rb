@@ -26,11 +26,15 @@ module CXML
 
     def render(node)
       node.ItemOut('quantity' => @quantity, 'lineNumber' => @line_number, 'requestedDeliveryDate' => @requested_delivery_date) do |t|
-        t.ItemID do |o|
-          o.SupplierPartID { |p| p.text(@supplier_part_id['content']) }
+        if @supplier_part_id
+          t.ItemID do |o|
+            o.SupplierPartID { |p| p.text(@supplier_part_id['content']) }
+          end
         end
-        t.ItemID do |o|
-          o.SupplierPartAuxiliaryID { |p| p.text(@supplier_part_auxiliary_id['content']) }
+        if @supplier_part_auxiliary_id
+          t.ItemID do |o|
+            o.SupplierPartAuxiliaryID { |p| p.text(@supplier_part_auxiliary_id['content']) }
+          end
         end
         if @item_detail
           t.ItemDetail do |o|
