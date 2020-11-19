@@ -7,7 +7,7 @@ module CXML
         @country_code = data['CountryCode']
         @area_or_city_code = data['AreaOrCityCode']
         @number = data['Number']
-        @iso_country_code = IsoCountryCodes.find(@country_code).alpha2
+        @iso_country_code = IsoCountryCodes.find(@country_code).calling.tr('+', '')
       end
     end
 
