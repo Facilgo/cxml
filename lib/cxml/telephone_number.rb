@@ -13,8 +13,8 @@ module CXML
 
     def render(node)
       node.TelephoneNumber do |t|
-        t.CountryCode('isoCountryCode' => @iso_country_code) do |s|
-          s.text(@country_code)
+        t.CountryCode('isoCountryCode' => @country_code) do |s|
+          s.text(@iso_country_code)
         end
         t.AreaOrCityCode  { |s| s.text(@area_or_city_code) }
         t.Number          { |s| s.text(@number) }
